@@ -16,5 +16,5 @@ public class Students {
     private Degrees degree;
     private Integer course;
     private List<Courses> courses;
-    private List<Session> sessions;
+    private List<Sessions> sessions;
 }
