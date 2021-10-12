@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("materials")
+@RequestMapping("/materials")
 public class MaterialsController {
     @Autowired
     MaterialsService materialsService;

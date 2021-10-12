@@ -7,9 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Materials {
+public class Courses {
     private Long id;
-    private Courses course;
     private String name;
-    private String content;
 }
