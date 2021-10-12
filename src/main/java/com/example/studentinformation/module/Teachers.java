@@ -11,9 +11,6 @@ import java.util.List;
 public class Teachers {
     private Long id;
     private String fullName;
-    private Degrees degree;
-    private Integer course;
-    private List<Courses> courses;
-    private List<Sessions> sessions;
+    private String academicDegree;
 
 }

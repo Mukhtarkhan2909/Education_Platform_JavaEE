@@ -15,6 +15,4 @@ public class Students {
     private Teachers curator;
     private Degrees degree;
     private Integer course;
-    private List<Courses> courses;
-    private List<Sessions> sessions;
 }
