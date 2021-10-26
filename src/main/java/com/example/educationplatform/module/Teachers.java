@@ -11,5 +11,4 @@ public class Teachers {
     private Long id;
     private String fullName;
     private String academicDegree;
-
 }

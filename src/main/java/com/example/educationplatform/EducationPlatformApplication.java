@@ -34,4 +34,15 @@ public class EducationPlatformApplication {
         return restTemplate;
     }
 
+    @Bean
+    public RestTemplate restTemplateWithoutLoadBalancer() {
+        HttpComponentsClientHttpRequestFactory requestFactory
+                = new HttpComponentsClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(3000);
+
+        RestTemplate restTemplate = new RestTemplate(requestFactory);
+
+        return restTemplate;
+    }
+
 }
