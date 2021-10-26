@@ -1,20 +1,17 @@
 # Education_Platform_JavaEE
 
-# Every microservice is represented in different branch.
+# Every microservice is represented in different branches
 
 Our microservices:
 
 Mukhtarkhan Nalibayev
 
-Education-Platform
-Students-Information
+Education-Platform, Students-Information
   
 Diyas Tursunkali
 
-Teachers-Information
-Materials
+Teachers-Information, Materials
 
 Zhomartkhan Kalanuly
 
-Course-Information
-Sessions
+Course-Information, Sessions
