@@ -8,8 +8,8 @@ public interface EducationPlatformService {
     List<Courses> getStudentCourses(Long studentId);
     List<Courses> getTeacherCourses(Long teacherId);
     Students getStudentInformationById(Long id);
-    StudentSessions getStudentSessions(Long studentID);
-    StudentMaterials getStudentMaterialById(Long studentId);
-    TeacherMaterials getTeacherMaterialById(Long teacherId);
     Teachers getTeacherInformationById(Long id);
+    List<Materials> getStudentMaterial(Long studentId);
+    List<Materials> getTeacherMaterial(Long teacherId);
+    List<Sessions> getStudentSessions(Long studentID);
 }

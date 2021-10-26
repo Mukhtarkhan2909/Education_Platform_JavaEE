@@ -21,4 +21,35 @@ public class EducationPlatformController {
     public ResponseEntity<?> getStudentCourses(@PathVariable Long studentId) {
         return ResponseEntity.ok(educationPlatformService.getStudentCourses(studentId));
     }
+
+    @GetMapping("/teacher-courses/{teacherId}")
+    public ResponseEntity<?> getTeacherCourses(@PathVariable Long teacherId) {
+        return ResponseEntity.ok(educationPlatformService.getTeacherCourses(teacherId));
+    }
+
+    @GetMapping("/student-information/{studentId}")
+    public ResponseEntity<?> getStudentInformationById(@PathVariable Long studentId) {
+        return ResponseEntity.ok(educationPlatformService.getStudentInformationById(studentId));
+    }
+
+    @GetMapping("/teacher-information/{teacherId}")
+    public ResponseEntity<?> getTeacherInformationById(@PathVariable Long teacherId) {
+        return ResponseEntity.ok(educationPlatformService.getTeacherInformationById(teacherId));
+    }
+
+    @GetMapping("/student-materials/{studentId}")
+    public ResponseEntity<?> getStudentMaterial(@PathVariable Long studentId) {
+        return ResponseEntity.ok(educationPlatformService.getStudentMaterial(studentId));
+    }
+
+    @GetMapping("/teacher-materials/{teacherId}")
+    public ResponseEntity<?> getTeacherMaterial(@PathVariable Long teacherId) {
+        return ResponseEntity.ok(educationPlatformService.getTeacherMaterial(teacherId));
+    }
+
+    @GetMapping("/student-sessions/{studentId}")
+    public ResponseEntity<?> getStudentSessions(@PathVariable Long studentId) {
+        return ResponseEntity.ok(educationPlatformService.getStudentSessions(studentId));
+    }
+
 }

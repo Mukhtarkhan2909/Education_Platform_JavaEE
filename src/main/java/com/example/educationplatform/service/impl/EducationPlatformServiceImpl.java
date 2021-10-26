@@ -3,6 +3,7 @@ package com.example.educationplatform.service.impl;
 import com.example.educationplatform.module.*;
 import com.example.educationplatform.service.EducationPlatformService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestOperations;
 
@@ -18,44 +19,50 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
 
     @Override
     public List<Courses> getStudentCourses(Long studentId) {
-        StudentCourses studentCourses = new StudentCourses();
-        studentCourses.setStudentId(studentId);
+        StudentCourses courses = restTemplate.getForObject("http://localhost:8085/courses/student-courses/" + studentId, StudentCourses.class);
 
-        return studentCourses.getStudentCourses().stream()
-                .map(course -> {
-                    Courses courses = restTemplate.getForObject("http://course-information-service/student-courses/" + course.getId(), Courses.class);
-                    return new Courses(course.getId(), courses.getName());
-                })
-                .collect(Collectors.toList());
+        return courses.getStudentCourses();
     }
 
     @Override
     public List<Courses> getTeacherCourses(Long teacherId) {
-        return null;
+        TeacherCourses courses = restTemplate.getForObject("http://localhost:8085/courses/teacher-courses/" + teacherId, TeacherCourses.class);
+
+        return courses.getTeacherCourses();
     }
 
     @Override
     public Students getStudentInformationById(Long id) {
-        return null;
-    }
+        Students students = restTemplate.getForObject("http://localhost:8082/students/get-student/" + id, Students.class);
 
-    @Override
-    public StudentSessions getStudentSessions(Long studentID) {
-        return null;
-    }
-
-    @Override
-    public StudentMaterials getStudentMaterialById(Long studentId) {
-        return null;
-    }
-
-    @Override
-    public TeacherMaterials getTeacherMaterialById(Long teacherId) {
-        return null;
+        return students;
     }
 
     @Override
     public Teachers getTeacherInformationById(Long id) {
-        return null;
+        Teachers teachers = restTemplate.getForObject("http://localhost:8083/teachers/get-teacher/" + id, Teachers.class);
+
+        return teachers;
+    }
+
+    @Override
+    public List<Sessions> getStudentSessions(Long studentID) {
+        StudentSessions sessions = restTemplate.getForObject("http://localhost:8086/sessions/student-sessions/" + studentID, StudentSessions.class);
+
+        return sessions.getStudentSessions();
+    }
+
+    @Override
+    public List<Materials> getStudentMaterial(Long studentId) {
+        StudentMaterials materials = restTemplate.getForObject("http://localhost:8084/materials/student-materials/" + studentId, StudentMaterials.class);
+
+        return materials.getStudentMaterials();
+    }
+
+    @Override
+    public List<Materials> getTeacherMaterial(Long teacherId) {
+        TeacherMaterials materials = restTemplate.getForObject("http://localhost:8084/materials/teacher-materials/" + teacherId, TeacherMaterials.class);
+
+        return materials.getTeacherMaterials();
     }
 }
