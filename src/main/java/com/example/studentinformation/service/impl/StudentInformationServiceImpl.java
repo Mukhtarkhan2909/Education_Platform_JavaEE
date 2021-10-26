@@ -4,6 +4,8 @@ import com.example.studentinformation.module.Degrees;
 import com.example.studentinformation.module.Students;
 import com.example.studentinformation.module.Teachers;
 import com.example.studentinformation.service.StudentInformationService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,7 +18,13 @@ public class StudentInformationServiceImpl implements StudentInformationService 
     @Autowired
     private RestTemplate restTemplate;
 
-    @Override
+    @HystrixCommand(
+            fallbackMethod = "getTeachersInformationByIdFallback",
+            threadPoolKey = "getStudentInformationById",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+            })
     public Students getStudentInformationById(Long id) {
         Students student = new Students();
         student.setId(id);
@@ -25,6 +33,13 @@ public class StudentInformationServiceImpl implements StudentInformationService 
         student.setDegree(Degrees.Bachelor);
         student.setCurator(restTemplate.getForObject("http://localhost:8083/teachers/get-teacher/" + 1, Teachers.class));
         return student;
+    }
+
+    public Teachers getTeachersInformationByIdFallback(Long id) {
+        Teachers teachers = new Teachers();
+        teachers.setId(0L);
+        teachers.setFullName("Service Unavailable");
+        return teachers;
     }
 
 }
