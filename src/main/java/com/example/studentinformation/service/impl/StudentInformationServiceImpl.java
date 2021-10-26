@@ -23,7 +23,7 @@ public class StudentInformationServiceImpl implements StudentInformationService 
         student.setFullName("Student1");
         student.setCourse(1);
         student.setDegree(Degrees.Bachelor);
-        student.setCurator(restTemplate.getForObject("http://teacher-information-service/teacher/" + 1L, Teachers.class));
+        student.setCurator(restTemplate.getForObject("http://localhost:8083/teachers/get-teacher/" + 1, Teachers.class));
         return student;
     }
 

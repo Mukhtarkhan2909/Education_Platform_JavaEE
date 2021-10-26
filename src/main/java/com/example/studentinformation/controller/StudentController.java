@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentController {
     @Autowired
     private StudentInformationService studentInformationService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-student/{id}")
     public ResponseEntity<?> getStudentInformationById(@PathVariable Long id) {
         return ResponseEntity.ok(studentInformationService.getStudentInformationById(id));
     }
