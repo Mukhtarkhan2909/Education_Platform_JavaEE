@@ -21,8 +21,8 @@ public class MaterialsServiceImpl implements MaterialsService {
     public StudentMaterials getStudentMaterialById(Long studentId) {
         Materials materials = new Materials();
         materials.setId(1L);
-        materials.setCourse(restTemplate.getForObject("http://localhost:8082/course/" + 1L, Courses.class));
-        materials.setName("Lecture");
+        materials.setCourse(restTemplate.getForObject("http://localhost:8085/courses/get-course/" + 1, Courses.class));
+        materials.setName("Project");
         return new StudentMaterials(studentId, Collections.singletonList(materials));
     }
 
@@ -30,7 +30,7 @@ public class MaterialsServiceImpl implements MaterialsService {
     public TeacherMaterials getTeacherMaterialById(Long teacherId) {
         Materials materials = new Materials();
         materials.setId(1L);
-        materials.setCourse(restTemplate.getForObject("http://localhost:8082/course/" + 1L, Courses.class));
+        materials.setCourse(restTemplate.getForObject("http://localhost:8085/courses/get-course/" + 1, Courses.class));
         materials.setName("Lecture");
         return new TeacherMaterials(1L, Collections.singletonList(materials));
     }
