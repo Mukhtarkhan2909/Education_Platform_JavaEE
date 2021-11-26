@@ -25,7 +25,9 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getStudentCourses",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
+                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Courses> getStudentCourses(Long studentId) {
         StudentCourses courses = restTemplate.getForObject("http://localhost:8085/courses/student-courses/" + studentId, StudentCourses.class);
@@ -39,7 +41,9 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getTeacherCourses",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
+                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Courses> getTeacherCourses(Long teacherId) {
         TeacherCourses courses = restTemplate.getForObject("http://localhost:8085/courses/teacher-courses/" + teacherId, TeacherCourses.class);
@@ -61,7 +65,9 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getStudentInformationById",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
+                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public Students getStudentInformationById(Long id) {
         Students students = restTemplate.getForObject("http://localhost:8082/students/get-student/" + id, Students.class);
@@ -81,7 +87,9 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getTeacherInformationById",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
+                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public Teachers getTeacherInformationById(Long id) {
         Teachers teachers = restTemplate.getForObject("http://localhost:8083/teachers/get-teacher/" + id, Teachers.class);
@@ -101,7 +109,9 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getStudentSessions",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
+                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Sessions> getStudentSessions(Long studentID) {
         StudentSessions sessions = restTemplate.getForObject("http://localhost:8086/sessions/student-sessions/" + studentID, StudentSessions.class);
@@ -121,7 +131,9 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getStudentMaterial",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
+                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Materials> getStudentMaterial(Long studentId) {
         StudentMaterials materials = restTemplate.getForObject("http://localhost:8084/materials/student-materials/" + studentId, StudentMaterials.class);
@@ -134,7 +146,9 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getTeacherMaterial",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
+                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Materials> getTeacherMaterial(Long teacherId) {
         TeacherMaterials materials = restTemplate.getForObject("http://localhost:8084/materials/teacher-materials/" + teacherId, TeacherMaterials.class);
