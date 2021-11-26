@@ -15,7 +15,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 @EnableCircuitBreaker
 @EnableHystrixDashboard
-@EnableHystrix
 public class StudentInformationApplication {
 
     public static void main(String[] args) {
