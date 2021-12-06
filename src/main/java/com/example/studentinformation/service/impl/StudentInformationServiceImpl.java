@@ -31,15 +31,15 @@ public class StudentInformationServiceImpl implements StudentInformationService 
         student.setFullName("Student1");
         student.setCourse(1);
         student.setDegree(Degrees.Bachelor);
-        student.setCurator(restTemplate.getForObject("http://localhost:8083/teachers/get-teacher/" + 1, Teachers.class));
+        student.setCurator(restTemplate.getForObject("http://teacher-information-service/teacher/" + 1L, Teachers.class));
         return student;
     }
 
-    public Teachers getTeachersInformationByIdFallback(Long id) {
-        Teachers teachers = new Teachers();
-        teachers.setId(0L);
-        teachers.setFullName("Service Unavailable");
-        return teachers;
+    public Students getTeachersInformationByIdFallback(Long id) {
+        Students student = new Students();
+        student.setId(0L);
+        student.setFullName("Teachers Service Unavailable");
+        return student;
     }
 
 }
