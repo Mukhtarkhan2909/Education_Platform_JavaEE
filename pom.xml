@@ -5,17 +5,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.0</version>
+        <version>2.3.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>com.emaple</groupId>
     <artifactId>Zuul-Server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Zuul-Server</name>
     <description>Zuul-Server</description>
     <properties>
-        <java.version>11</java.version>
-        <spring-cloud.version>2021.0.0-RC1</spring-cloud.version>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
@@ -31,13 +31,7 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
+       <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.0</version>
@@ -46,14 +40,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-            <version>2.2.10.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <version>2.1.1.RELEASE</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -82,6 +74,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
             </plugin>
         </plugins>
     </build>
@@ -94,16 +87,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-<!--        <repository>-->
-<!--            <id>com.springsource.repository.bundles.release</id>-->
-<!--            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>-->
-<!--            <url>http://repository.springsource.com/maven/bundles/release</url>-->
-<!--        </repository>-->
-<!--        <repository>-->
-<!--            <id>com.springsource.repository.bundles.external</id>-->
-<!--            <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>-->
-<!--            <url>http://repository.springsource.com/maven/bundles/external</url>-->
-<!--        </repository>-->
     </repositories>
 
 </project>
