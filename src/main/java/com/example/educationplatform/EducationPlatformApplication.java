@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableCircuitBreaker
 @EnableHystrixDashboard
 @EnableHystrix
 public class EducationPlatformApplication {
@@ -25,24 +24,25 @@ public class EducationPlatformApplication {
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
-        HttpComponentsClientHttpRequestFactory requestFactory
-                = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(3000);
-
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-
-        return restTemplate;
+//        HttpComponentsClientHttpRequestFactory requestFactory
+//                = new HttpComponentsClientHttpRequestFactory();
+//        requestFactory.setConnectTimeout(3000);
+//
+//        RestTemplate restTemplate = new RestTemplate(requestFactory);
+//
+//        return restTemplate;
+        return new RestTemplate();
     }
 
-    @Bean
-    public RestTemplate restTemplateWithoutLoadBalancer() {
-        HttpComponentsClientHttpRequestFactory requestFactory
-                = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(3000);
-
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-
-        return restTemplate;
-    }
+//    @Bean
+//    public RestTemplate restTemplateWithoutLoadBalancer() {
+//        HttpComponentsClientHttpRequestFactory requestFactory
+//                = new HttpComponentsClientHttpRequestFactory();
+//        requestFactory.setConnectTimeout(3000);
+//
+//        RestTemplate restTemplate = new RestTemplate(requestFactory);
+//
+//        return restTemplate;
+//    }
 
 }

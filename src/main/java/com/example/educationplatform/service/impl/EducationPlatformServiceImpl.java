@@ -4,11 +4,15 @@ import com.example.educationplatform.module.*;
 import com.example.educationplatform.service.EducationPlatformService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestOperations;
-
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,12 +29,23 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getStudentCourses",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
-                    @HystrixProperty(name="maximumSize", value="120"),
+//                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
-                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
+//                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Courses> getStudentCourses(Long studentId) {
-        StudentCourses courses = restTemplate.getForObject("http://localhost:8085/courses/student-courses/" + studentId, StudentCourses.class);
+
+        String apiCredentials = "rest-client:p@ssword";
+        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+
+        StudentCourses courses = restTemplate.exchange("http://course-information-service/courses/student-courses/" + studentId,
+                HttpMethod.GET, entity, StudentCourses.class).getBody();
+//        StudentCourses courses = restTemplate.getForObject("http://course-information-service/courses/student-courses/" + studentId, StudentCourses.class);
 
         return courses.getStudentCourses();
     }
@@ -41,21 +56,33 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getTeacherCourses",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
-                    @HystrixProperty(name="maximumSize", value="120"),
+//                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
-                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
+//                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Courses> getTeacherCourses(Long teacherId) {
-        TeacherCourses courses = restTemplate.getForObject("http://localhost:8085/courses/teacher-courses/" + teacherId, TeacherCourses.class);
+        String apiCredentials = "rest-client:p@ssword";
+        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+
+        TeacherCourses courses = restTemplate.exchange("http://course-information-service/courses/teacher-courses/" + teacherId,
+                HttpMethod.GET, entity, TeacherCourses.class).getBody();
+//        TeacherCourses courses = restTemplate.getForObject("http://course-information-service/courses/teacher-courses/" + teacherId, TeacherCourses.class);
 
         return courses.getTeacherCourses();
     }
 
-    public Courses getCourseInformationByIdFallback(Long id) {
+    public List<Courses> getCourseInformationByIdFallback(Long id) {
+        List<Courses> coursess = new ArrayList<>();
         Courses courses = new Courses();
-        courses.setId(0L);
-        courses.setName("Service Unavailable");
-        return courses;
+        courses.setId(id);
+        courses.setName("Course Information Service Unavailable");
+        coursess.add(courses);
+        return coursess;
     }
 
 
@@ -65,20 +92,29 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getStudentInformationById",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
-                    @HystrixProperty(name="maximumSize", value="120"),
+//                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
-                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
+//                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public Students getStudentInformationById(Long id) {
-        Students students = restTemplate.getForObject("http://localhost:8082/students/get-student/" + id, Students.class);
 
-        return students;
+        String apiCredentials = "rest-client:p@ssword";
+        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+
+        return restTemplate.exchange("http://student-information-service/students/get-student/" + id,
+                HttpMethod.GET, entity, Students.class).getBody();
+//        return restTemplate.getForObject("http://student-information-service/students/get-student/" + id, Students.class);
     }
 
     public Students getStudentInformationByIdFallback(Long id) {
         Students students = new Students();
         students.setId(0L);
-        students.setFullName("Service Unavailable");
+        students.setFullName("Student Information Service Unavailable");
         return students;
     }
 
@@ -87,20 +123,28 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getTeacherInformationById",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
-                    @HystrixProperty(name="maximumSize", value="120"),
+//                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
-                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
+//                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public Teachers getTeacherInformationById(Long id) {
-        Teachers teachers = restTemplate.getForObject("http://localhost:8083/teachers/get-teacher/" + id, Teachers.class);
+        String apiCredentials = "rest-client:p@ssword";
+        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
 
-        return teachers;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+
+        return restTemplate.exchange("http://teacher-information-service/teacher/" + id,
+                HttpMethod.GET, entity, Teachers.class).getBody();
+//        return restTemplate.getForObject("http://teacher-information-service/teacher/" + id, Teachers.class);
     }
 
     public Teachers getTeacherInformationByIdFallback(Long id) {
         Teachers teachers = new Teachers();
         teachers.setId(0L);
-        teachers.setFullName("Service Unavailable");
+        teachers.setFullName("Teacher Information Service Unavailable");
         return teachers;
     }
 
@@ -109,20 +153,33 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getStudentSessions",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
-                    @HystrixProperty(name="maximumSize", value="120"),
+//                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
-                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
+//                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Sessions> getStudentSessions(Long studentID) {
-        StudentSessions sessions = restTemplate.getForObject("http://localhost:8086/sessions/student-sessions/" + studentID, StudentSessions.class);
+
+        String apiCredentials = "rest-client:p@ssword";
+        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+
+        StudentSessions sessions = restTemplate.exchange("http://sessions-service/sessions/student-sessions/" + studentID,
+                HttpMethod.GET, entity, StudentSessions.class).getBody();
+//        StudentSessions sessions = restTemplate.getForObject("http://sessions-service/sessions/student-sessions/" + studentID, StudentSessions.class);
 
         return sessions.getStudentSessions();
     }
 
-    public Sessions getSessionInformationByIdFallback(Long id) {
-        Sessions sessions = new Sessions();
-        sessions.setId(0L);
-        sessions.setPassingDate("Service Unavailable");
+    public List<Sessions> getSessionInformationByIdFallback(Long id) {
+        List<Sessions> sessions = new ArrayList<>();
+        Sessions session = new Sessions();
+        session.setId(0L);
+        session.setPassingDate("Session Information Service Unavailable");
+        sessions.add(session);
         return sessions;
     }
 
@@ -131,12 +188,23 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getStudentMaterial",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
-                    @HystrixProperty(name="maximumSize", value="120"),
+//                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
-                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
+//                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Materials> getStudentMaterial(Long studentId) {
-        StudentMaterials materials = restTemplate.getForObject("http://localhost:8084/materials/student-materials/" + studentId, StudentMaterials.class);
+
+        String apiCredentials = "rest-client:p@ssword";
+        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+
+        StudentMaterials materials = restTemplate.exchange("http://materials-service/materials/student-materials/" + studentId,
+                HttpMethod.GET, entity, StudentMaterials.class).getBody();
+//        StudentMaterials materials = restTemplate.getForObject("http://materials-service/materials/student-materials/" + studentId, StudentMaterials.class);
 
         return materials.getStudentMaterials();
     }
@@ -146,20 +214,33 @@ public class EducationPlatformServiceImpl implements EducationPlatformService {
             threadPoolKey = "getTeacherMaterial",
             threadPoolProperties = {
                     @HystrixProperty(name="coreSize", value="100"),
-                    @HystrixProperty(name="maximumSize", value="120"),
+//                    @HystrixProperty(name="maximumSize", value="120"),
                     @HystrixProperty(name="maxQueueSize", value="50"),
-                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
+//                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Materials> getTeacherMaterial(Long teacherId) {
-        TeacherMaterials materials = restTemplate.getForObject("http://localhost:8084/materials/teacher-materials/" + teacherId, TeacherMaterials.class);
+
+        String apiCredentials = "rest-client:p@ssword";
+        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+
+        TeacherMaterials materials = restTemplate.exchange("http://materials-service/materials/teacher-materials/" + teacherId,
+                HttpMethod.GET, entity, TeacherMaterials.class).getBody();
+//        TeacherMaterials materials = restTemplate.getForObject("http://materials-service/materials/teacher-materials/" + teacherId, TeacherMaterials.class);
 
         return materials.getTeacherMaterials();
     }
 
-    public Materials getMaterialInformationByIdFallback(Long id) {
-        Materials materials = new Materials();
-        materials.setId(0L);
-        materials.setName("Service Unavailable");
+    public List<Materials> getMaterialInformationByIdFallback(Long id) {
+        List<Materials> materials = new ArrayList<>();
+        Materials material = new Materials();
+        material.setId(0L);
+        material.setName("Materials Service Unavailable");
+        materials.add(material);
         return materials;
     }
 
