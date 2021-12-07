@@ -20,15 +20,8 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/platform/**").permitAll()
-                .antMatchers("/student/**").permitAll()
-                .antMatchers("/teacher/**").permitAll()
-                .antMatchers("/materials/**").authenticated()
-//                 .antMatchers("/users/update").hasAuthority("ADMIN")
-//                 .antMatchers("/users/create").permitAll()
-//                .antMatchers("/users/update").hasAuthority("ADMIN")
-                .anyRequest().permitAll()
-//                .anyRequest().authenticated()
+                .antMatchers("/api/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtTokenGeneratorFilter(authenticationManager()))
                 .addFilterAfter(new JwtTokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
