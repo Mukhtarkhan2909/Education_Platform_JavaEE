@@ -1,4 +1,4 @@
-package com.example.teacherinformation.configuration;
+package com.example.teacherinformation.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
