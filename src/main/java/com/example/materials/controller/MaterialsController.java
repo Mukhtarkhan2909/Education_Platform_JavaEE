@@ -14,6 +14,11 @@ public class MaterialsController {
     @Autowired
     MaterialsService materialsService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getMaterialById(@PathVariable Long id) {
+        return ResponseEntity.ok(materialsService.getMaterialById(id));
+    }
+
     @GetMapping("/student-materials/{studentId}")
     public ResponseEntity<?> getStudentMaterialById(@PathVariable Long studentId) {
         return ResponseEntity.ok(materialsService.getStudentMaterialById(studentId));
