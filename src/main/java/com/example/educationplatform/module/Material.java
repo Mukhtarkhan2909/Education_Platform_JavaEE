@@ -6,26 +6,23 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Courses {
+public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private int numOfWeeks;
-
-    @Override
-    public String toString() {
-        return "Courses{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", numOfWeeks=" + numOfWeeks +
-                '}';
-    }
+    private String content;
+    private int weekNum;
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "id", insertable = false, updatable = false)
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "courseId", referencedColumnName = "id", insertable = false, updatable = false)
+    private Courses course;
 }
