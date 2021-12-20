@@ -1,0 +1,56 @@
+<app-navigation></app-navigation>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <button class="mybtn btn btn-secondary" (click)="show()" *ngIf="!showAdd">Add Course</button>
+      <button class="mybtn btn btn-secondary" (click)="hide()" *ngIf="showAdd">Close</button>
+    </div>
+  </div>
+  <form class="form-horizontal shadow p-3 mb-5 bg-white rounded " #f="ngForm"
+        *ngIf="showAdd"
+        (ngSubmit)="f.form.valid && addCourse(name,numOfWeeks)">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Course Name" #name
+                 ngModel name="name">
+        </div>
+        <div class="form-group">
+          <input type="number" class="form-control" placeholder="Number of weeks" name="numOfWeeks" #numOfWeeks
+                 ngModel>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <input type="submit" class=" btn btn-primary" value="Add Course">
+      </div>
+    </div>
+  </form>
+  <hr>
+  <div class="row">
+    <div class="col-12 align-left" *ngFor="let course of courses">
+      <div class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+          <h5 class="card-title">{{course.name}}</h5>
+          <p class="card-text">Number of weeks {{course.numOfWeeks}}</p>
+          <input type="hidden" value="{{course.id}}" #courseId>
+          <div class="col-6">
+            <button class="btn btn-danger"
+                    (click)="delCourse(courseId)">Remove</button>
+          </div>
+          <!--                                        <div class="row">-->
+          <!--                                                <div class="col-6">-->
+          <!--                                                        <button class="btn btn-secondary" (click)="edit(cid)">Edit</button>-->
+          <!--                                                </div>-->
+          <!--                                                <div class="col-6">-->
+          <!--                                                        <button class="btn btn-danger"-->
+          <!--                                                                (click)="delProd(cid)">Remove</button>-->
+          <!--                                                </div>-->
+          <!--                                        </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

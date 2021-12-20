@@ -1,0 +1,32 @@
+<app-navigation></app-navigation>
+<div class="container">
+  <div *ngIf="course">
+    <h1>{{course.name}}</h1>
+    <br>
+    <div *ngFor="let week of counter(course.numOfWeeks); let i = index">
+      <h3>Week {{i+1}}</h3>
+      <div class="col-12 align-left" *ngFor="let material of materials" style="background-color: burlywood">
+        <div class="card shadow p-3 mb-5 bg-white rounded" *ngIf="material.weekNum == i+1">
+          <div class="card-body">
+            <h5 class="card-title">{{material.name}}</h5>
+            <p class="card-text">{{material.content}}</p>
+            <p class="card-text">Uploaded by <b>{{material.user.userName}}</b></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 align-left" *ngFor="let task of tasks" style="background-color: cadetblue">
+        <div class="card shadow p-3 mb-5 bg-white rounded" *ngIf="task.weekNum == i+1">
+          <div class="card-body">
+            <h5 class="card-title">{{task.name}}</h5>
+            <p class="card-text">{{task.description}}</p>
+            <p class="card-text">Deadline <b>{{task.deadline}}</b></p>
+            <p class="card-text">Uploaded by <b>{{task.user.userName}}</b></p>
+            <a class=" nav-link" routerLink="/task-answers/{{task.id}}">Details</a>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <br>
+    </div>
+  </div>
+</div>

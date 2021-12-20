@@ -1,0 +1,66 @@
+<app-navigation></app-navigation>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <button class="mybtn btn btn-secondary" (click)="show()" *ngIf="!showAdd">Add User</button>
+      <button class="mybtn btn btn-secondary" (click)="hide()" *ngIf="showAdd">Close</button>
+    </div>
+  </div>
+  <form class="form-horizontal shadow p-3 mb-5 bg-white rounded " #f="ngForm"
+        *ngIf="showAdd"
+        (ngSubmit)="f.form.valid && addUser(fullName, userName, password, userType)">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Full name" #fullName
+                 ngModel name="fullName">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Username" name="userName" #userName
+                 ngModel>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Password" name="password" #password
+                 ngModel>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="User type" name="userType" #userType
+                 ngModel>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <input type="submit" class=" btn btn-primary" value="Add User">
+      </div>
+    </div>
+  </form>
+  <hr>
+  <div class="row">
+    <div class="col-3 align-left" *ngFor="let user of users">
+      <div class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+          <h5 class="card-title">{{user.fullName}}</h5>
+          <p class="card-text">{{user.userName}}</p>
+          <p class="card-text">{{user.password}}</p>
+          <p class="card-text">{{user.userType}}</p>
+          <input type="hidden" value="{{user.id}}" #userId>
+          <div class="col-6">
+            <button class="btn btn-danger"
+                    (click)="delUser(userId)">Remove</button>
+          </div>
+          <!--                                        <div class="row">-->
+          <!--                                                <div class="col-6">-->
+          <!--                                                        <button class="btn btn-secondary" (click)="edit(cid)">Edit</button>-->
+          <!--                                                </div>-->
+<!--                                                          <div class="col-6">-->
+<!--                                                                  <button class="btn btn-danger"-->
+<!--                                                                          (click)="delProd(cid)">Remove</button>-->
+<!--                                                          </div>-->
+          <!--                                        </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

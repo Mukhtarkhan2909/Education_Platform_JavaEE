@@ -1,0 +1,25 @@
+<app-navigation></app-navigation>
+<div class="container">
+  <hr>
+  <div class="row">
+    <div class="col-3 align-left" *ngFor="let course of courses">
+      <div class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+          <h5 class="card-title">{{course.name}}</h5>
+          <p class="card-text">Number of weeks {{course.numOfWeeks}}</p>
+          <a class=" nav-link" routerLink="/teacher-materials/{{course.id}}">Details</a>
+          <input type="hidden" value={{course.id}} #cid>
+          <!--                                        <div class="row">-->
+          <!--                                                <div class="col-6">-->
+          <!--                                                        <button class="btn btn-secondary" (click)="edit(cid)">Edit</button>-->
+          <!--                                                </div>-->
+          <!--                                                <div class="col-6">-->
+          <!--                                                        <button class="btn btn-danger"-->
+          <!--                                                                (click)="delProd(cid)">Remove</button>-->
+          <!--                                                </div>-->
+          <!--                                        </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

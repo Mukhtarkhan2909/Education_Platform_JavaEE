@@ -1,0 +1,19 @@
+<app-navigation></app-navigation>
+<div class="container">
+    <h1>{{answer.task.name}}</h1>
+    <h5>{{answer.task.description}}</h5>
+    <h5>{{answer.task.deadline}}</h5>
+    <br>
+    <div *ngIf="answer">
+      <h3>Answered by {{answer.user.fullName}}</h3>
+      <div class="col-12 align-left" style="background-color: burlywood">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+          <div class="card-body">
+            <h5 class="card-title">Passing date {{answer.passingDate}}</h5>
+            <p class="card-text" *ngIf="answer.approved">Answer approved</p>
+            <p class="card-text" *ngIf="answer.approved">Grade {{answer.grade}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

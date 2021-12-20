@@ -1,0 +1,18 @@
+<app-navigation></app-navigation>
+<div class="container">
+  <div *ngIf="task">
+    <h1>{{task.name}} answers</h1>
+    <br>
+    <div *ngFor="let answer of answers; let i = index">
+      <div class="col-12 align-left" style="background-color: burlywood">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+          <div class="card-body">
+            <h5 class="card-title">Answered by {{answer.user.fullName}}</h5>
+            <p class="card-text">Passing date {{answer.passingDate}}</p>
+            <p class="card-text" *ngIf="answer.approved">Grade {{answer.grade}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
