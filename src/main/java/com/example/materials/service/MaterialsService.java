@@ -1,12 +1,18 @@
 package com.example.materials.service;
 
-import com.example.materials.module.Materials;
-import com.example.materials.module.StudentMaterials;
-import com.example.materials.module.TeacherMaterials;
+import com.example.materials.module.Material;
+import com.example.materials.module.Task;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface MaterialsService {
-    StudentMaterials getStudentMaterialById(Long studentId);
-    TeacherMaterials getTeacherMaterialById(Long teacherId);
-
-    Materials getMaterialById(Long id);
+    Optional<Material> getMaterialById(Long id);
+    List<Material> getUserMaterials(Long userId, Long courseId);
+    List<Material> getAllMaterials();
+    List<Material> getCourseMaterials(Long courseId);
+    Optional<Task> getTaskById(Long id);
+    List<Task> getUserTasks(Long userId, Long courseId);
+    List<Task> getAllTasks();
+    List<Task> getCourseTasks(Long courseId);
 }

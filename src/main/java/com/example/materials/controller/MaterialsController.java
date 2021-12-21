@@ -14,18 +14,44 @@ public class MaterialsController {
     @Autowired
     MaterialsService materialsService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-materials")
+    public ResponseEntity<?> getMaterialById() {
+        return ResponseEntity.ok(materialsService.getAllMaterials());
+    }
+
+    @GetMapping("/find-material/{id}")
     public ResponseEntity<?> getMaterialById(@PathVariable Long id) {
         return ResponseEntity.ok(materialsService.getMaterialById(id));
     }
 
-    @GetMapping("/student-materials/{studentId}")
-    public ResponseEntity<?> getStudentMaterialById(@PathVariable Long studentId) {
-        return ResponseEntity.ok(materialsService.getStudentMaterialById(studentId));
+    @GetMapping("/user-materials/{userId}/{courseId}")
+    public ResponseEntity<?> getUserMaterials(@PathVariable Long userId, @PathVariable Long courseId) {
+        return ResponseEntity.ok(materialsService.getUserMaterials(userId, courseId));
     }
 
-    @GetMapping("/teacher-materials/{teacherId}")
-    public ResponseEntity<?> getTeacherMaterialById(@PathVariable Long teacherId) {
-        return ResponseEntity.ok(materialsService.getTeacherMaterialById(teacherId));
+    @GetMapping("/course-materials/{courseId}")
+    public ResponseEntity<?> getCourseMaterials(@PathVariable Long courseId) {
+        return ResponseEntity.ok(materialsService.getCourseMaterials(courseId));
     }
+
+    @GetMapping("/get-tasks")
+    public ResponseEntity<?> getAllTasks() {
+        return ResponseEntity.ok(materialsService.getAllTasks());
+    }
+
+    @GetMapping("/find-task/{id}")
+    public ResponseEntity<?> getTaskById(@PathVariable Long id) {
+        return ResponseEntity.ok(materialsService.getTaskById(id));
+    }
+
+    @GetMapping("/user-tasks/{userId}/{courseId}")
+    public ResponseEntity<?> getUserTasks(@PathVariable Long userId, @PathVariable Long courseId) {
+        return ResponseEntity.ok(materialsService.getUserTasks(userId, courseId));
+    }
+
+    @GetMapping("/course-tasks/{courseId}")
+    public ResponseEntity<?> getCourseTasks(@PathVariable Long courseId) {
+        return ResponseEntity.ok(materialsService.getCourseTasks(courseId));
+    }
+
 }
